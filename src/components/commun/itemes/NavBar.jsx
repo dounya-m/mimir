@@ -14,6 +14,28 @@ function NavBar() {
             const toggleMenu = () => {
             setIsMenuOpen(!isMenuOpen);
             };
+            const NavItem = [
+              {
+                name: 'Home',
+                path: '/'
+              },
+              {
+                name: 'Book',
+                path: '/book'
+              },
+              {
+                name: 'Request a Book',
+                path: '/request'
+              },
+              {
+                name: 'Contatct',
+                path: '/contatct'
+              },
+              {
+                name: 'Login',
+                path: '/login'
+              },
+            ]
         
 return (
     <div className='flex flex-col relatiev'>
@@ -31,22 +53,33 @@ return (
         <div className={`${
           isMenuOpen ? 'block ' : 'hidden'
         }`}>
-        <MainNav className='' />
+          <div className='absolute px-5 text-xl font-normal bg-[#FBF8F1] z-40 gap-[2rem] p-[2rem]   justify-center Bosca flex flex-col items-center w-[80%] border-b-2 border-black '>
+          {NavItem.map((item) =>(
+              <div className='mx-auto'
+                key={item.name}>
+                <NavLink onClick={toggleMenu}
+                className='hover:border-[#54BAB9] hover:border-b-2 border-b-2 border-transparent pb-1'
+                  to={item.path}>
+                  {item.name}
+                </NavLink>
+              </div>
+            ))}
+          </div>
         </div>
     </div>
   )
 }
 
-function MainNav() {
-    return(
-        <div className='flex flex-col gap-[1rem] items-center justify-center px-5 pt-5 pb-12 font-normal Bosca text-xl absolute w-[83vw]  bg-[#FBF8F1]  z-50 '>
-            <NavLink to="/" className='hover:border-[#54BAB9] hover:border-b-2 border-b-2 border-transparent pb-1' >Home</NavLink>            
-            <NavLink to="/book" className='hover:border-[#54BAB9] hover:border-b-2 border-b-2 border-transparent pb-1' >Book</NavLink>
-            <NavLink to="/request" className='hover:border-[#54BAB9] hover:border-b-2 border-b-2 border-transparent pb-1' >Request a Book</NavLink>
-            <NavLink to="/" className='hover:border-[#54BAB9] hover:border-b-2 border-b-2 border-transparent pb-1' >Contatct</NavLink>
-            <NavLink to="/Login" className='hover:border-[#54BAB9] hover:border-b-2 border-b-2 border-transparent pb-1' >Login</NavLink>
-        </div>
-    )
-}
+// function MainNav() {
+//     return(
+//         <div className='flex flex-col gap-[1rem] items-center justify-center px-5 pt-5 pb-12 font-normal Bosca text-xl absolute w-[83vw]  bg-[#FBF8F1]  z-50 '>
+//             <NavLink to="/" className='hover:border-[#54BAB9] hover:border-b-2 border-b-2 border-transparent pb-1' >Home</NavLink>            
+//             <NavLink to="/book" className='hover:border-[#54BAB9] hover:border-b-2 border-b-2 border-transparent pb-1' >Book</NavLink>
+//             <NavLink to="/request" className='hover:border-[#54BAB9] hover:border-b-2 border-b-2 border-transparent pb-1' >Request a Book</NavLink>
+//             <NavLink to="/" className='hover:border-[#54BAB9] hover:border-b-2 border-b-2 border-transparent pb-1' >Contatct</NavLink>
+//             <NavLink to="/login" className='hover:border-[#54BAB9] hover:border-b-2 border-b-2 border-transparent pb-1' >Login</NavLink>
+//         </div>
+//     )
+// }
 
 export default NavBar

@@ -12,7 +12,7 @@ function App() {
       <Route path="/book" element={ <Layaout><Book /></Layaout>} />      
       <Route path="/request" element={ <Layaout><Request /></Layaout>} />      
       <Route path="/singlebook" element={ <Layaout><SinglBook /></Layaout>} />      
-      <Route path="/Login" element={ <Login />  } />      
+      <Route path="/login" element={ <Login />  } />      
       <Route path="*" element={<Layaout>{<ErrorNotFound />}</Layaout>} />
       </Routes>
     </Router>
