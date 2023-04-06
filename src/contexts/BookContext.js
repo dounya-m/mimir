@@ -1,26 +1,32 @@
-import React, { useState, useEffect, createContext } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
-export const BookContext = createContext();
+const BookContext = React.createContext();
 
-export const BookProvider = (props) => {
-const [books, setBooks] = useState([]);
+export const BookProvider = ({ children }) => {
+  const [books, setBooks] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
 
-useEffect(() => {
-    axios.get('http://localhost:5000/api/mimir/book')
-    .then(response => {
-        setBooks(response.data);
-    })
-    .catch(error => {
-        console.log(error);
-    });
-}, []);
+  const fetchBooks = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/mimir/book');
+      const data = await response.json();
+      setBooks(data);
+    } catch (error) {
+      console.error('Error fetching books:', error);
+    }
+  };
 
-const contextValue = { books };
+  useEffect(() => {
+    fetchBooks();
+  }, []);
 
-return (
-    <BookContext.Provider value={contextValue}>
-    {props.children}
+  return (
+    <BookContext.Provider value={{ books, searchQuery, setSearchQuery, selectedCategory, setSelectedCategory, selectedYear, setSelectedYear  }}>
+      {children}
     </BookContext.Provider>
-);
+  );
 };
+
+export default BookContext;
