@@ -1,20 +1,49 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
-function BookDetailles() {
-  return (
+function BookDetailles({ bookId }) {
+
+    const [bookDetails, setBookDetails] = useState([]);
+    
+    useEffect(() => {
+        fetchBookDetails();
+    }, [bookId]);
+
+    const fetchBookDetails = async () => {
+        try {
+            const response = await fetch(`http://localhost:5000/api/mimir/book/${bookId}`);
+            const data = await response.json();
+            setBookDetails(data);
+            console.log(data);
+        } catch (error) {
+            console.error('Error fetching book details:', error);
+        }
+    };
+    
+    if (!bookDetails) {
+        return <div>Loading
+                <span className='dots1'>.</span>
+                <span className='dots2'>.</span>
+                <span className='dots3'>.</span>
+            </div>;
+      }
+
+
+    return (
     <div>
         <section className='flex md:flex-row gap-4 bg-[#F9F2E7] sm:flex-col'>
             <div>
-                <img className='lg:w-[50vw] sm:w-[100%]' src={require('../../../assets/images/books/Rectangle 8.png')} alt="" />
+                <img className='lg:w-[50vw] sm:w-[100%]' src={bookDetails.image} alt="" />
             </div>
             <div className='flex flex-col justify-center gap-4 pl-2 capitalize'>
-                <p className='text-4xl Bosca'>harry potter</p>
+                <p className='text-4xl Bosca'>{bookDetails.title}</p>
                 <div className='flex gap-1 text-base text-[#DEA331] '>
-                    <p>Gillen Mckelvie</p>
-                    <p>.</p><p>2012</p><p>.</p>
-                    <p>Horror/Thriller</p>
+                    <p>{bookDetails.author}</p>
+                    <p>.</p><p>{bookDetails.year}</p><p>.</p>
+                    <p>{bookDetails.type ? bookDetails.type.join(" / ") : "Not available"}</p>
                 </div>
-                <p className='w-[80%] text-gray-400 text-xs'>A teen looks to impress some girls by sneaking into the woods to find a house where a witch is said to live. He and his companions find out the hard way that the legend of the child-eating witch is true and she is back and on the hunt. a teen looks to impress some girls by sneaking into the woods to find a house where a witch is said to live. He and his companions find out the hard way that the legend of the child-eating witch is true and she is back and on the hunt.</p>
+                <p className='w-[80%] text-gray-400 text-xs'>
+                    {bookDetails.description}
+                </p>
             </div>
         </section>
     </div>

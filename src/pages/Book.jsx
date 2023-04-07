@@ -7,7 +7,7 @@ return (
     <div className="basis-[10vw]">
         <FilterBooks />
     </div>
-    <div className="">
+    <div className="basis-full">
         <RecentBook  />
     </div>
     </div>
