@@ -32,7 +32,7 @@ function BookDetailles({ bookId }) {
     <div>
         <section className='flex md:flex-row gap-4 bg-[#F9F2E7] sm:flex-col'>
             <div>
-                <img className='lg:w-[50vw] sm:w-[100%]' src={bookDetails.image} alt="" />
+                <img className='lg:w-[35vw] object-cover lg:h-[52vh] sm:w-[100%]' src={bookDetails.image} alt="" />
             </div>
             <div className='flex flex-col justify-center gap-4 pl-2 capitalize'>
                 <p className='text-4xl Bosca'>{bookDetails.title}</p>
