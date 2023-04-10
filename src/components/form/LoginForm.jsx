@@ -14,6 +14,7 @@ function LoginForm() {
     e.preventDefault();
     const result = await login(email, password);
     if (result.success) {
+      //log the user information
       navigate('/');
     } else {
       setError(result.message);

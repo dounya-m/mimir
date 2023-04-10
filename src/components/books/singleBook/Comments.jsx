@@ -1,4 +1,4 @@
-import React from 'react'  
+import React, {useContext} from 'react'  
 import { Link } from 'react-router-dom' 
 import {AiOutlineComment} from 'react-icons/ai'
 import {TbLayoutList} from 'react-icons/tb'
@@ -6,6 +6,7 @@ import {BsPerson} from 'react-icons/bs'
 import {AiOutlineHeart} from 'react-icons/ai'
 import {BiShare} from 'react-icons/bi'
 import {MdOutlineKeyboardArrowDown} from 'react-icons/md'
+import AuthProvider from '../../../contexts/AuthProvider'
 function Comments() {
   return (
     <div className=''>
@@ -40,6 +41,7 @@ function CommentNav(){
         </div>
     )
 }
+
 function AddComment() {
 
     return(
@@ -71,8 +73,8 @@ function AllComments() {
                 </div>
 
                 <div className='flex gap-4'>
-                    <button className='flex justify-center items-center gap-2 '> <AiOutlineHeart className='text-lg' /> 18</button>
-                    <button className='flex justify-center items-center gap-2 '><BiShare className='text-lg' /> Reply</button>
+                    <button className='flex items-center justify-center gap-2 '> <AiOutlineHeart className='text-lg' /> 18</button>
+                    <button className='flex items-center justify-center gap-2 '><BiShare className='text-lg' /> Reply</button>
                 </div>
                 
                 <div>

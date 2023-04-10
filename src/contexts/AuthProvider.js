@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AuthContext from './AuthContext';
+import jwt_decode from 'jwt-decode';
 
 
 const AuthProvider = ({ children }) => {
@@ -11,17 +12,20 @@ const AuthProvider = ({ children }) => {
             const storedToken = localStorage.getItem('token');
             if(storedToken) {
                 setToken(storedToken);
+                const decodedToken = jwt_decode(storedToken);
+                console.log(decodedToken);
+                setUser(decodedToken.user); 
+            
             }
         },  []);
 
-        const register = async (email, password) => {
+        const login = async (email, password) => {
             try {
             const response = await fetch('http://localhost:5000/api/mimir/user/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
             });
-        
             if (response.ok) {
                 const data = await response.json();
                 const { token, user } = data;
@@ -37,8 +41,13 @@ const AuthProvider = ({ children }) => {
             return { success: false, message: 'Something went wrong. Please try again later.' };
             }
         };
+        const logout = () => {
+            localStorage.removeItem('token');
+            setToken(null);
+            setUser(null);
+        };
         
-        const value = { user, token, register };
+        const value = { user, token, login, logout };
         return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 
     };
